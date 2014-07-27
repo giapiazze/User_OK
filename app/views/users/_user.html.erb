@@ -1,0 +1,13 @@
+<td>
+  <%= link_to user.name, user %>
+</td>
+<td>
+  <%= link_to("Edit", edit_user_path(user), :class => 'button-xs') %>
+</td>
+<td>
+  <%= user.admin_roles.map {|c| c.name}.join(', ') %>
+</td>
+<td>
+  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete,
+              :class => 'button-xs btn-danger') unless user == current_user %>
+</td>

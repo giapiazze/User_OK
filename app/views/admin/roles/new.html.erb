@@ -1,0 +1,10 @@
+<div class="authform">
+  <h3>Nuovo Ruolo <%= @admin_role.name if @admin_role.name %></h3>
+
+  <%= render 'form' %>
+
+  <%= link_to 'Back', admin_roles_path, :class => 'button left' %>
+
+</div>
+
+
