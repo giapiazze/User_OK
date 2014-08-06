@@ -29,11 +29,16 @@ class UsersController < ApplicationController
   def create
     @user = User.new(secure_params)
     authorize @user
+    @back = request.env["HTTP_REFERER"]
+    @here = request.env["REQUEST_URI"]
     if @user.save
       redirect_to admin_administer_index_path, :notice => "User updated."
     else
-      link_to_function "Back", "history.back()"
-      redirect_to users_path, :alert => "Unable to update user."
+      if !request.env["HTTP_REFERER"].blank? and request.env["HTTP_REFERER"] != request.env["REQUEST_URI"]
+        redirect_to :back, :alert => "Unable to create user."
+      else
+        redirect_to new_user_path, :alert => "Unable to create user."
+      end
     end
 
   end

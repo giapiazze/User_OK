@@ -66,6 +66,9 @@ class Admin::RolesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_role
       @admin_role = Admin::Role.find(params[:id])
+      if !current_user.admin?
+        redirect_to root_path, :alert => "Your role can't do it."
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
